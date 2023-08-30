@@ -1,136 +1,95 @@
+# Phase4_project
+# OVERVIEW
+This project involves building a time series model using Zillow data to aid real estate investors in making informed investment decisions.
+The dataset comprises property information, and the project encompasses:
+* Data preprocessing,
+* Time series transformation,
+* Exploratory data analysis,
+* Model selection,
+* Training
+* Evaluation.
 
-# Phase 4 Project - Choosing a Dataset
+Recommendations on where to invest will be provided based on these predictions and supplemented with additional insights from EDA.
+The project also includes documentation, deployment, maintenance, and a feedback loop to continuously enhance the model's accuracy and relevance to real estate investment needs.
 
-For this phase, you will choose a project that relates to one of the following topics:
+![download](https://github.com/WatiriVivian/Phase4_project/assets/118829983/dbad7ca6-54ad-42c8-a62b-1c8e8026fda5)
 
-- Time Series Modeling
-- Recommendation Systems
-- Image Classification with Deep Learning
-- Natural Language Processing
 
-## The Data
+# BUSINESS UNDERSTANDING
+This project aims to significantly enhance business understanding for real estate investors by leveraging time series analysis of *Zillow data*. 
+It will provide investors with historical property *price trends, helping them make data-driven investment decisions, manage risks, identify promising locations, and access forecasts through a user-friendly interface*. 
 
-We have provided a dataset suitable to each topic, but you are also welcome to source your own dataset. If you choose your own dataset, **run the dataset and business problem by your instructor for approval** before starting your project.
+The project's continuous improvement approach, including a feedback loop and regular updates, ensures that investors stay well-informed in a dynamic real estate market, ultimately empowering them to optimize their investments and improve their overall understanding of the industry.
 
-### How to Choose a Project
+# PROJECT OBJECTIVE
+The project's main objective is to develop a time series forecasting model using **Zillow data** to assist real estate investors in making informed decisions about where to invest their capital. 
+This model will provide predictions and insights into property price trends, helping investors identify regions and cities with potential for price appreciation. Ultimately, the project aims to empower investors with data-driven tools that enhance their understanding of real estate market dynamics, enabling them to make more strategic and profitable investment choices.
+**The key question is: What are the top 5 best zip codes for us to invest in**
 
-When choosing a project, consider one of the following approaches:
+# DATA UNDERSTANDING AND PREPARATION
+### For data understanding:
+This dataset contains information about median housing sales values for various zip codes over a span of *22 years, from April 1996 to April 2018*.
 
-1. **Depth:** Choose a project that similar to what you want to do for your capstone project (Phase 5). This will allow you to practice those methods in a group setting before needing to use it independently. This will help you build a better Capstone project and a portfolio that demonstrates the ability to deeply learn and implement one modeling approach.
+* There are 272 columns
+* 14723 rows indexed from 0 to 14722.
+* RegionID: Is a unique index for each region (zip code) ranging from 58196 to 753844
+* RegionName: Is a unique zip code for each region, ranging from 1001 to 99901
 
-2. **Breadth:** Choose a problem that you don't necessarily plan to use in your capstone project. This will allow you to develop applied experience with multiple modeling approaches. This will help you refine your areas of interest and build a portfolio that demonstrates the ability to learn and implement multiple modeling approaches.
+219 columns are float data type
+49 columns are integer data types.
+4 columns are object data types.
+There are 220 columns with missing values. 
 
-If you are feeling overwhelmed or behind, we recommend you choose Topic 3: Image Classification with Deep Learning.
+### preparation:
+1. We began by thoroughly exploring the Zillow dataset
+2. Checking for missing values, and addressing outliers
+3. Transforming the dataset into a time series format, with 'RegionName' representing unique properties or regions and 'Date' as the time dimension.
+4. Filtering for the top 5 zip codes using ROI that is calculated using ROI
+   *Net income / Cost of investment x 100.*
+5. Also transforming the data from *wide-form* to *long-form*
+6.  Calculate relevant time-based features, such as moving averages or seasonality patterns, to capture temporal trends.
+7.   Additionally, splitting the data into training and testing sets, and reserving the most recent data for validation. This will create a clean, structured dataset for time series modeling and forecasting.
 
-### Topic 1: Time Series Modeling
+# EDA
+The median (50th percentile) size rank is approximately 46106, indicating the middle-sized zip code in the dataset.
+**The median housing sales value across all zip codes ranges from around USD11,300 to USD 3,849,600.**
+The mean (average) housing sales value across all zip codes ranges from approximately *USD 118,299 to USD 288,039*.
+We performed univariate and bivariate analysis
+#### Univariate analysis 
+A comparison of the location to the median price
 
-If you choose the Time Series option, you will be forecasting real estate prices of various zip codes using data from [Zillow Research](https://www.zillow.com/research/data/). For this project, you will be acting as a consultant for a fictional real-estate investment firm. The firm has asked you what seems like a simple question:
+![download](https://github.com/WatiriVivian/Phase4_project/assets/118829983/a7755457-3562-485a-9fea-5f73ee54d974)
 
-> What are the top 5 best zip codes for us to invest in?
+#### bivariate analysis
+A comparison of both the ROI and the CV for different locations
+![download](https://github.com/WatiriVivian/Phase4_project/assets/118829983/2688159d-4560-4b1e-915c-374c9d3ad11f)
 
-This may seem like a simple question at first glance, but there's more than a little ambiguity here that you'll have to think through in order to provide a solid recommendation. Should your recommendation be focused on profit margins only? What about risk? What sort of time horizon are you predicting against?  Your recommendation will need to detail your rationale and answer any sort of lingering questions like these in order to demonstrate how you define "best".
+# Modeling, Forecasting, and Conclusion
+The exploration of the Zillow dataset through time series modeling revealed valuable insights into housing price trends and seasonality. Utilizing SARIMA, the project effectively captured data patterns, generating accurate forecasts.
 
-There are many datasets on the [Zillow Research Page](https://www.zillow.com/research/data/), and making sure you have exactly what you need can be a bit confusing. For simplicity's sake, we have already provided the dataset for you in this repo -- you will find it in the file `time-series/zillow_data.csv`.
+Key Takeaways:
 
-The goal of this project is to have you complete a very common real-world task in regard to time series modeling. However, real world problems often come with a significant degree of ambiguity, which requires you to use your knowledge of statistics and data science to think critically about and answer. While the main task in this project is time series modeling, that isn't the overall goal -- it is important to understand that time series modeling is a tool in your toolbox, and the forecasts it provides you are what you'll use to answer important questions.
+* Visualization: The histogram depicting April 2018's median home prices in New York offered a snapshot of price distribution, aiding potential investors in decision-making.
 
-In short, to pass this project, demonstrating the quality and thoughtfulness of your overall recommendation is at least as important as successfully building a time series model!
+* Decomposition: Data decomposition highlighted patterns in seasonality, trend, and residual components, forming the basis for robust forecasting models.
 
-#### Starter Jupyter Notebook
+* Model Performance: Low Mean Squared Error (MSE) values, such as 1.5479, 1.7155, and 2.0511, demonstrated the SARIMA model's effectiveness in comparison to test data.
 
-For this project, you will be provided with a Jupyter notebook, `time-series/starter_notebook.ipynb`, containing some starter code. If you inspect the Zillow dataset file, you'll notice that the datetimes for each sale are the actual column names -- this is a format you probably haven't seen before. To ensure that you're not blocked by preprocessing, we've provided some helper functions to help simplify getting the data into the correct format. You're not required to use this notebook or keep it in its current format, but we strongly recommend you consider making use of the helper functions so you can spend your time working on the parts of the project that matter.
+* Forecasting: The model's predictions and confidence intervals provided investors with future insights, facilitating an understanding of market dynamics.
 
-#### Evaluation
+In Conclusion, the SARIMA-driven exploration of the Zillow dataset empowered decision-making in the housing market. Insights, supported by performance metrics, highlight the potential of data-driven methodologies for strategic choices.
 
-In addition to deciding which quantitative metric(s) you want to target (e.g. minimizing mean squared error), you need to start with a definition of "best investment".  Consider additional metrics like risk vs. profitability, or ROI yield.
 
-### Topic 2: Recommendation Systems
+# Recommendations
 
-If you choose the Recommendation System option, you will be making movie recommendations based on the [MovieLens](https://grouplens.org/datasets/movielens/latest/) dataset from the GroupLens research lab at the University of Minnesota.  Unless you are planning to run your analysis on a paid cloud platform, we recommend that you use the "small" dataset containing 100,000 user ratings (and potentially, only a particular subset of that dataset).
+Diversify Investments: To manage risk and capture market dynamics, diversify your portfolio across analyzed states like Oyster Bay, Freedom, Winfield, Cincinnatus, and Schaghticoke.
 
-Your task is to:
+Explore Oyster Bay: With ample data, Oyster Bay offers stability, making it a viable investment option.
 
-> Build a model that provides top 5 movie recommendations to a user, based on their ratings of other movies.
+Prioritize ROI: Focus on cities with higher Return on Investment (ROI) figures for lucrative opportunities.
 
-The MovieLens dataset is a "classic" recommendation system dataset, that is used in numerous academic papers and machine learning proofs-of-concept.  You will need to create the specific details about how the user will provide their ratings of other movies, in addition to formulating a more specific business problem within the general context of "recommending movies".
+Evaluate Risk: Assess risk using the Coefficient of Variation (CV). Lower CV values, e.g., Winfield, indicate stable investments.
 
-#### Collaborative Filtering
+Consider Location: Factor in city attributes, growth potential, amenities, and demand when making investment choices.
 
-At minimum, your recommendation system must use collaborative filtering.  If you have time, consider implementing a hybrid approach, e.g. using collaborative filtering as the primary mechanism, but using content-based filtering to address the [cold start problem](https://en.wikipedia.org/wiki/Cold_start_(computing)).
-
-#### Evaluation
-
-The MovieLens dataset has explicit ratings, so achieving some sort of evaluation of your model is simple enough.  But you should give some thought to the question of metrics. Since the rankings are ordinal, we know we can treat this like a regression problem.  But when it comes to regression metrics there are several choices: RMSE, MAE, etc.  [Here](http://fastml.com/evaluating-recommender-systems/) are some further ideas.
-
-### Topic 3: Image Classification with Deep Learning
-
-If you choose this option, you'll put everything you've learned together to build a deep neural network that trains on a large dataset for classification on a non-trivial task.  In this case, using x-ray images of pediatric patients to identify whether or not they have pneumonia.  The dataset comes from Kermany et al. on [Mendeley](https://data.mendeley.com/datasets/rscbjbr9sj/3), although there is also a version on [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia) that may be easier to use.
-
-Your task is to:
-
-> Build a model that can classify whether a given patient has pneumonia, given a chest x-ray image.
-
-#### Aim for a Proof of Concept
-
-With Deep Learning, data is king -- the more of it, the better. However, the goal of this project isn't to build the best model possible -- it's to demonstrate your understanding by building a model that works. You should try to avoid datasets and model architectures that won't run in reasonable time on your own machine. For many problems, this means downsampling your dataset and only training on a portion of it. Once you're absolutely sure that you've found the best possible architecture and other hyperparameters for your model, then consider training your model on your entire dataset overnight (or, as larger portion of the dataset that will still run in a feasible amount of time).
-
-At the end of the day, we want to see your thought process as you iterate and improve on a model. A project that achieves a lower level of accuracy but has clearly iterated on the model and the problem until it found the best possible approach is more impressive than a model with high accuracy that did no iteration. We're not just interested in seeing you finish a model -- we want to see that you understand it, and can use this knowledge to try and make it even better!
-
-#### Evaluation
-
-Evaluation is fairly straightforward for this project.  But you'll still need to think about which metric to use and about how best to cross-validate your results.
-
-### Topic 4: Natural Language Processing (NLP)
-
-If you choose this option, you'll build an NLP model to analyze Twitter sentiment about Apple and Google products. The dataset comes from CrowdFlower via [data.world](https://data.world/crowdflower/brands-and-product-emotions). Human raters rated the sentiment in over 9,000 Tweets as positive, negative, or neither.
-
-Your task is to:
-
-> Build a model that can rate the sentiment of a Tweet based on its content.
-
-#### Aim for a Proof of Concept
-
-There are many approaches to NLP problems - start with something simple and iterate from there. For example, you could start by limiting your analysis to positive and negative Tweets only, allowing you to build a binary classifier. Then you could add in the neutral Tweets to build out a multiclass classifier. You may also consider using some of the more advanced NLP methods in the Mod 4 Appendix.
-
-#### Evaluation
-
-Evaluating multiclass classifiers can be trickier than binary classifiers because there are multiple ways to mis-classify an observation, and some errors are more problematic than others. Use the business problem that your NLP project sets out to solve to inform your choice of evaluation metrics.
-
-### Sourcing Your Own Data
-
-Sourcing new data is a valuable skill for data scientists, but it requires a great deal of care. An inappropriate dataset or an unclear business problem can lead you spend a lot of time on a project that delivers underwhelming results. The guidelines below will help you complete a project that demonstrates your ability to engage in the full data science process.
-
-Your dataset must be...
-
-1. **Appropriate for one of this phase's models.** These are time series, recommendation systems, image classification, or natural language processing.   
-
-2. **Usable to solve a specific business problem.** This solution must rely on your model.
-
-3. **Somewhat complex.** It should contain thousands of rows and features that require creativity to use.
-
-4. **Unfamiliar.** It can't be one we've already worked with during the course or that is commonly used for demonstration purposes (e.g. MNIST).
-
-5. **Manageable.** Stick to datasets that you can model using the techniques introduced in Phase 4.
-
-#### Problem First, or Data First?
-
-There are two ways that you can source your own dataset: **_Problem First_** or **_Data First_**. The less time you have to complete the project, the more strongly we recommend a Data First approach to this project.
-
-**_Problem First_**: Start with a problem that you are interested in that you could potentially solve with a classification model. Then look for data that you could use to solve that problem. This approach is high-risk, high-reward: Very rewarding if you are able to solve a problem you are invested in, but frustrating if you end up sinking lots of time in without finding appropriate data. To mitigate the risk, set a firm limit for the amount of time you will allow yourself to look for data before moving on to the Data First approach.
-
-**_Data First_**: Take a look at some of the most popular internet repositories of cool data sets we've listed below. If you find a data set that's particularly interesting for you, then it's totally okay to build your problem around that data set.
-
-#### Potential Data Sources
-
-There are plenty of amazing places that you can get your data from. We recommend you start looking at data sets in some of these resources first:
-
-* [UCI Machine Learning Datasets Repository](https://archive.ics.uci.edu/ml/datasets.php)
-* [Kaggle Datasets](https://www.kaggle.com/datasets)
-* [Awesome Datasets Repo on Github](https://github.com/awesomedata/awesome-public-datasets)
-* Local data portals for state and local government resources
-    - Examples: [NYC](https://opendata.cityofnewyork.us/), [Houston](http://data.houstontx.gov/), [Seattle](https://data.seattle.gov/), [California](https://data.ca.gov/)
-* [Inside AirBNB](http://insideairbnb.com/)
-* [FiveThirtyEight’s data portal](https://data.fivethirtyeight.com/)
-* [Data is Plural’s Archive Spreadsheet](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0)
-* [Datasets Subreddit](https://www.reddit.com/r/datasets/)
-* [Tensorflow Datasets](https://www.tensorflow.org/datasets/catalog/overview)
+In summary, diversification, ROI emphasis, risk evaluation, and location considerations are key in USA real estate investment decisions.
